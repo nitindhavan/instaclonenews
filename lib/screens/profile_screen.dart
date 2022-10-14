@@ -48,6 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
       postLen = postSnap.docs.length;
       userData = userSnap.data()!;
+      print(userData);
       followers = userSnap.data()!['followers'].length;
       following = userSnap.data()!['following'].length;
       isFollowing = userSnap
@@ -75,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
               title: Text(
-                userData['username'],
+                userData['username'] ?? 'UserName',
               ),
               centerTitle: false,
             ),

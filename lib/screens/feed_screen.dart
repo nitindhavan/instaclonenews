@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone_flutter/screens/chat_page.dart';
+import 'package:instagram_clone_flutter/screens/home_page.dart';
 import 'package:instagram_clone_flutter/utils/colors.dart';
 import 'package:instagram_clone_flutter/utils/global_variable.dart';
 import 'package:instagram_clone_flutter/widgets/post_card.dart';
@@ -36,7 +38,9 @@ class _FeedScreenState extends State<FeedScreen> {
                     Icons.messenger_outline,
                     color: primaryColor,
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+                  },
                 ),
               ],
             ),
