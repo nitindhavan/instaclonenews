@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:instagram_clone_flutter/screens/add_post_screen.dart';
 import 'package:instagram_clone_flutter/screens/chat_page.dart';
 import 'package:instagram_clone_flutter/screens/home_page.dart';
 import 'package:instagram_clone_flutter/utils/colors.dart';
@@ -25,25 +26,34 @@ class _FeedScreenState extends State<FeedScreen> {
       appBar: width > webScreenSize
           ? null
           : AppBar(
-              backgroundColor: mobileBackgroundColor,
-              centerTitle: false,
-              title: SvgPicture.asset(
-                'assets/ic_instagram.svg',
-                color: primaryColor,
-                height: 32,
-              ),
-              actions: [
-                IconButton(
-                  icon: const Icon(
-                    Icons.messenger_outline,
-                    color: primaryColor,
-                  ),
-                  onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
-                  },
-                ),
-              ],
+        backgroundColor: mobileBackgroundColor,
+        centerTitle: false,
+        title: SvgPicture.asset(
+          'assets/ic_instagram.svg',
+          color: primaryColor,
+          height: 32,
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(
+              Icons.add_a_photo,
+              color: primaryColor,
             ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+            },
+          ),
+          IconButton(
+            icon: const Icon(
+              Icons.messenger_outline,
+              color: primaryColor,
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> AddPostScreen()));
+            },
+          ),
+        ],
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),
         builder: (context,

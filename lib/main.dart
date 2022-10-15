@@ -20,7 +20,7 @@ void main() async {
         apiKey: "AIzaSyDb3DffXoUUXh6Mbqq94UOhIiOSdxDvdfU",
         appId: "1:891615174364:android:d2a595463799e744095e19",
         messagingSenderId: "891615174364",
-        projectId: "iworld-tic-tac-toe-championship",
+        projectId: "world-tic-tac-toe-championship",
         storageBucket: 'world-tic-tac-toe-championship.appspot.com'
       ),
     );
