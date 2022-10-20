@@ -28,11 +28,7 @@ class _FeedScreenState extends State<FeedScreen> {
           : AppBar(
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
-        title: SvgPicture.asset(
-          'assets/ic_instagram.svg',
-          color: primaryColor,
-          height: 32,
-        ),
+        title: Text('App Name'),
         actions: [
           IconButton(
             icon: const Icon(
@@ -40,7 +36,7 @@ class _FeedScreenState extends State<FeedScreen> {
               color: primaryColor,
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> AddPostScreen()));
             },
           ),
           IconButton(
@@ -49,7 +45,7 @@ class _FeedScreenState extends State<FeedScreen> {
               color: primaryColor,
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> AddPostScreen()));
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> HomePage()));
             },
           ),
         ],

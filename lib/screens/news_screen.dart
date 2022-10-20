@@ -29,11 +29,7 @@ class _NewsPageState extends State<NewsPage> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
-        title: SvgPicture.asset(
-          'assets/ic_instagram.svg',
-          color: primaryColor,
-          height: 32,
-        ),
+        title: const Text('App Name'),
         actions: [
           IconButton(
             icon: const Icon(

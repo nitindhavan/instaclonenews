@@ -112,25 +112,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
   @override
   Widget build(BuildContext context) {
     final UserProvider userProvider = Provider.of<UserProvider>(context);
-
-    return _file == null
-        ? Center(
-            child: IconButton(
-              icon: const Icon(
-                Icons.upload,
-              ),
-              onPressed: () => _selectImage(context),
-            ),
-          )
-        : Scaffold(
+        return Scaffold(
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
-              leading: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: clearImage,
-              ),
               title: const Text(
-                'Post to',
+                'Post',
               ),
               centerTitle: false,
               actions: <Widget>[
@@ -151,51 +137,52 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ],
             ),
             // POST FORM
-            body: Column(
-              children: <Widget>[
-                isLoading
-                    ? const LinearProgressIndicator()
-                    : const Padding(padding: EdgeInsets.only(top: 0.0)),
-                const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    CircleAvatar(
-                      backgroundImage: NetworkImage(
-                        userProvider.getUser.photoUrl,
-                      ),
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: TextField(
-                        controller: _descriptionController,
-                        decoration: const InputDecoration(
-                            hintText: "Write a caption...",
-                            border: InputBorder.none),
-                        maxLines: 8,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 45.0,
-                      width: 45.0,
-                      child: AspectRatio(
-                        aspectRatio: 487 / 451,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                            fit: BoxFit.fill,
-                            alignment: FractionalOffset.topCenter,
-                            image: MemoryImage(_file!),
-                          )),
+            body: _file != null ? SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  isLoading
+                      ? const LinearProgressIndicator()
+                      : const Padding(padding: EdgeInsets.only(top: 0.0)),
+                  const Divider(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      const SizedBox(width: 16,),
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(
+                          userProvider.getUser.photoUrl,
                         ),
                       ),
+                      SizedBox(width: 16,),
+                      Text(userProvider.getUser.username),
+                    ],
+                  ),
+                  SizedBox(height: 16,),
+                  Container(
+                    padding: EdgeInsets.all(16),
+                    width: double.infinity,
+                    child: Image.memory(_file!),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(16),
+                    width: MediaQuery.of(context).size.width,
+                    child: TextField(
+                      controller: _descriptionController,
+                      decoration: const InputDecoration(
+                          hintText: "Write a caption...",
+                          border: InputBorder.none),
+                      maxLines: 8,
                     ),
-                  ],
-                ),
-                const Divider(),
-              ],
-            ),
+                  ),
+                  const Divider(),
+                ],
+              ),
+            ) :
+            Center(
+              child: GestureDetector( onTap:(){
+                _selectImage(context);
+              },child: Text('upload Image'))
+              ),
           );
   }
 }
