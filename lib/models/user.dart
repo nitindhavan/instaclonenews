@@ -8,6 +8,7 @@ class User {
   final String bio;
   final List followers;
   final List following;
+  final String? address;
 
   const User(
       {required this.username,
@@ -15,6 +16,7 @@ class User {
       required this.photoUrl,
       required this.email,
       required this.bio,
+      required this.address,
       required this.followers,
       required this.following});
 
@@ -24,6 +26,7 @@ class User {
     return User(
       username: snapshot["username"],
       uid: snapshot["uid"],
+      address: snapshot["address"],
       email: snapshot["email"],
       photoUrl: snapshot["photoUrl"],
       bio: snapshot["bio"],
@@ -40,5 +43,6 @@ class User {
         "bio": bio,
         "followers": followers,
         "following": following,
+        "address":address
       };
 }

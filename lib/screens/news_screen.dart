@@ -29,7 +29,8 @@ class _NewsPageState extends State<NewsPage> {
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
         centerTitle: false,
-        title: const Text('App Name'),
+        elevation: 0,
+        title: const Text('News',style: TextStyle(color: Colors.black),),
         actions: [
           IconButton(
             icon: const Icon(

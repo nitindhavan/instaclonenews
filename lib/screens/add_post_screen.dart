@@ -19,6 +19,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   Uint8List? _file;
   bool isLoading = false;
   final TextEditingController _descriptionController = TextEditingController();
+  String tag='Job';
 
   _selectImage(BuildContext parentContext) async {
     return showDialog(
@@ -60,7 +61,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     );
   }
 
-  void postImage(String uid, String username, String profImage) async {
+  void postImage(String uid, String username, String profImage,String tag) async {
     setState(() {
       isLoading = true;
     });
@@ -72,7 +73,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
         _file!,
         uid,
         username,
-        profImage,
+        profImage,tag
       );
       if (res == "success") {
         setState(() {
@@ -125,6 +126,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                     userProvider.getUser.uid,
                     userProvider.getUser.username,
                     userProvider.getUser.photoUrl,
+                    tag
                   ),
                   child: const Text(
                     "Post",
@@ -143,6 +145,43 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   isLoading
                       ? const LinearProgressIndicator()
                       : const Padding(padding: EdgeInsets.only(top: 0.0)),
+                  Row(
+                    children: [
+                      SizedBox(width: 16,),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            tag='Job';
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 8,bottom: 8,left: 30,right: 30),
+                          margin: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: tag=='Job' ? Colors.blue : Colors.white70,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(child: Text('Job',style: TextStyle(fontWeight: FontWeight.bold),)),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: (){
+                          setState(() {
+                            tag='Training';
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(top: 8,bottom: 8,left: 30,right: 30),
+                          margin: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: tag!='Job' ? Colors.blue : Colors.white70,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Center(child: Text('Training',style: TextStyle(fontWeight: FontWeight.bold),)),
+                        ),
+                      ),
+                    ],
+                  ),
                   const Divider(),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,9 +211,11 @@ class _AddPostScreenState extends State<AddPostScreen> {
                           hintText: "Write a caption...",
                           border: InputBorder.none),
                       maxLines: 8,
+                      minLines: 1,
                     ),
                   ),
                   const Divider(),
+
                 ],
               ),
             ) :
