@@ -3,7 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_flutter/resources/auth_methods.dart';
 import 'package:instagram_clone_flutter/resources/firestore_methods.dart';
+import 'package:instagram_clone_flutter/screens/edit_profile.dart';
 import 'package:instagram_clone_flutter/screens/login_screen.dart';
+import 'package:instagram_clone_flutter/screens/signup_screen.dart';
 import 'package:instagram_clone_flutter/utils/colors.dart';
 import 'package:instagram_clone_flutter/utils/utils.dart';
 import 'package:instagram_clone_flutter/widgets/follow_button.dart';
@@ -186,7 +188,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       textColor: primaryColor,
                                       borderColor: Colors.grey,
                                       function: () async {
-                                          // TODO move to edit profile screen from here
+                                          Navigator.push(context, MaterialPageRoute(builder: (context)=> EditProfile()));
                                       },
                                     ),
                                         )
@@ -216,6 +218,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           userData['bio'],
                         ),
                       ),
+                      Divider(),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(top: 1,),
+                        child: Text(
+                          'Contact Number',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(top: 8,),
+                        child: Text(
+                          userData['phone']?? 'Phone number not added',
+                        ),
+                      ),
+                      Divider(),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(top: 1,),
+                        child: Text(
+                          'Address',style: TextStyle(fontSize: 16,color: Colors.black,fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(top: 8,),
+                        child: Text(
+                          userData['address']?? 'Address not added',
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -231,7 +263,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: CircularProgressIndicator(),
                       );
                     }
-
                     return GridView.builder(
                       shrinkWrap: true,
                       itemCount: (snapshot.data! as dynamic).docs.length,
@@ -248,7 +279,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                         return Container(
                           child: Image(
-                            image: NetworkImage(snap['postUrl']),
+                            image: NetworkImage(snap['postUrl'][0]),
                             fit: BoxFit.cover,
                           ),
                         );

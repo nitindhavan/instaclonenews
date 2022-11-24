@@ -18,6 +18,13 @@ class AuthMethods {
     return model.User.fromSnap(documentSnapshot);
   }
 
+  Future<void> updateUser(model.User user) async{
+    await _firestore
+        .collection("users")
+        .doc(user.uid)
+        .set(user.toJson());
+  }
+
   // Signing Up User
   Future<String> signUpUser({
     required String email,
@@ -44,10 +51,11 @@ class AuthMethods {
 
         model.User _user = model.User(
           username: username,
+          phone: '',
           uid: cred.user!.uid,
           photoUrl: photoUrl,
           email: email,
-          address: null,
+          address: '',
           bio: bio,
           followers: [],
           following: [],

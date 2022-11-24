@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone_flutter/providers/user_provider.dart';
 import 'package:instagram_clone_flutter/screens/chat_room.dart';
+import 'package:instagram_clone_flutter/screens/home_page.dart';
 import 'package:provider/provider.dart';
 
 class ChatList extends StatefulWidget {
@@ -14,6 +15,7 @@ class ChatList extends StatefulWidget {
 class _ChatListState extends State<ChatList> {
   var searchController=TextEditingController();
   String key='';
+  String mode='indiviual';
   @override
   Widget build(BuildContext context) {
     searchController.addListener(() {
@@ -33,7 +35,48 @@ class _ChatListState extends State<ChatList> {
       ),
       body: Column(
         children: [
-          Padding(
+          Row(
+            children: [
+              Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      mode='indiviual';
+                    });
+                  },
+                  child: Container(
+                    margin: EdgeInsets.all(8),
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: mode =='indiviual' ? Colors.blue : Colors.black12,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(child: Text('Indivual Chat',style: TextStyle(color: mode =='indiviual' ? Colors.white : Colors.black),)),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      // Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                      mode='group';
+                    });
+                  },
+                  child: Container(
+                    height: 50,
+                    margin: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: mode =='group' ? Colors.blue : Colors.black12,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(child: Text('Group Chat',style: TextStyle(color: mode =='group' ? Colors.white : Colors.black),)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if(mode=='indiviual')Padding(
             padding: const EdgeInsets.all(8.0),
             child: Container(
               decoration: BoxDecoration(
@@ -57,7 +100,7 @@ class _ChatListState extends State<ChatList> {
               ),
             ),
           ),
-          Expanded(
+          if(mode=='indiviual')Expanded(
             child: StreamBuilder(
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 UserProvider provider =Provider.of<UserProvider>(context,listen: false);
@@ -98,6 +141,7 @@ class _ChatListState extends State<ChatList> {
               stream: FirebaseFirestore.instance.collection('users').snapshots(),
             ),
           ),
+          if(mode=='group') Expanded(child: HomePage()),
         ],
       ),
     );

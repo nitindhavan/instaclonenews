@@ -65,6 +65,15 @@ class _PostCardState extends State<PostCard> {
     final model.User user = Provider.of<UserProvider>(context).getUser;
     final width = MediaQuery.of(context).size.width;
 
+    List<Widget> widgets=[];
+    for(String s in widget.snap['postUrl']){
+      widgets.add(Container(
+        width: MediaQuery.of(context).size.width,
+        child: Image.network(
+          s,
+        ),
+      ));
+    }
     return Container(
       // boundary needed for web
       decoration: BoxDecoration(
@@ -164,14 +173,10 @@ class _PostCardState extends State<PostCard> {
               alignment: Alignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  width: double.infinity,
-                  child: Image.network(
-                    widget.snap['postUrl'].toString(),
-
+                  height: 300,
+                  child: PageView(
+                    children: widgets,
+                    scrollDirection: Axis.horizontal,
                   ),
                 ),
                 AnimatedOpacity(

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:instagram_clone_flutter/providers/user_provider.dart';
 import 'package:instagram_clone_flutter/resources/firestore_methods.dart';
@@ -16,7 +17,7 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-  Uint8List? _file;
+  List<Uint8List> _files=[];
   bool isLoading = false;
   final TextEditingController _descriptionController = TextEditingController();
   String tag='Job';
@@ -35,7 +36,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   Navigator.pop(context);
                   Uint8List file = await pickImage(ImageSource.camera);
                   setState(() {
-                    _file = file;
+                    if(file.isNotEmpty) {
+                      _files.add(file);
+                    }
                   });
                 }),
             SimpleDialogOption(
@@ -45,7 +48,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   Navigator.of(context).pop();
                   Uint8List file = await pickImage(ImageSource.gallery);
                   setState(() {
-                    _file = file;
+                    if(file.isNotEmpty) {
+                      _files.add(file);
+                    }
                   });
                 }),
             SimpleDialogOption(
@@ -70,7 +75,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
       // upload to storage and db
       String res = await FireStoreMethods().uploadPost(
         _descriptionController.text,
-        _file!,
+        _files,
         uid,
         username,
         profImage,tag
@@ -100,7 +105,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   void clearImage() {
     setState(() {
-      _file = null;
+      _files = [];
     });
   }
 
@@ -139,7 +144,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               ],
             ),
             // POST FORM
-            body: _file != null ? SingleChildScrollView(
+            body: _files.isNotEmpty ? SingleChildScrollView(
               child: Column(
                 children: <Widget>[
                   isLoading
@@ -198,9 +203,14 @@ class _AddPostScreenState extends State<AddPostScreen> {
                   ),
                   SizedBox(height: 16,),
                   Container(
-                    padding: EdgeInsets.all(16),
-                    width: double.infinity,
-                    child: Image.memory(_file!),
+                    height: 300,
+                    child: ListView.builder(itemBuilder: (BuildContext context, int index) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.all(16),
+                        child: Image.memory(_files[index]),
+                      );
+                    },itemCount: _files.length,scrollDirection: Axis.horizontal,),
                   ),
                   Container(
                     margin: EdgeInsets.all(16),
@@ -224,6 +234,12 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 _selectImage(context);
               },child: Text('upload Image'))
               ),
+          floatingActionButton: FloatingActionButton(
+            tooltip: 'add', onPressed: () {
+              _selectImage(context);
+
+          },child: Icon(Icons.add),
+          ),
           );
   }
 }

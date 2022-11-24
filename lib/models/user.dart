@@ -1,21 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
-  final String email;
-  final String uid;
-  final String photoUrl;
-  final String username;
-  final String bio;
-  final List followers;
-  final List following;
-  final String? address;
+  String email;
+  String uid;
+  String photoUrl;
+  String username;
+  String bio;
+  String phone;
+  List followers;
+  List following;
+  String address;
 
-  const User(
+  User(
       {required this.username,
       required this.uid,
       required this.photoUrl,
       required this.email,
       required this.bio,
+      required this.phone,
       required this.address,
       required this.followers,
       required this.following});
@@ -24,14 +26,15 @@ class User {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return User(
-      username: snapshot["username"],
-      uid: snapshot["uid"],
-      address: snapshot["address"],
-      email: snapshot["email"],
-      photoUrl: snapshot["photoUrl"],
-      bio: snapshot["bio"],
-      followers: snapshot["followers"],
-      following: snapshot["following"],
+      username: snapshot["username"]??'',
+      uid: snapshot["uid"]??'',
+      address: snapshot["address"]??'',
+      phone: snapshot["phone"]??'',
+      email: snapshot["email"]??'',
+      photoUrl: snapshot["photoUrl"]??'',
+      bio: snapshot["bio"]??'',
+      followers: snapshot["followers"]??[],
+      following: snapshot["following"]??[],
     );
   }
 
@@ -41,8 +44,9 @@ class User {
         "email": email,
         "photoUrl": photoUrl,
         "bio": bio,
+        "phone": phone,
         "followers": followers,
         "following": following,
-        "address":address
+        "address":address,
       };
 }

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -9,7 +8,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:instagram_clone_flutter/models/message_chat.dart';
-
 import '../Constants/firestore_constants.dart';
 import '../providers/chat_provider.dart';
 
@@ -418,14 +416,14 @@ class ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black12,
+        backgroundColor: Colors.blue,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: Container(
           width: double.infinity,
           child: Text(
             this.widget.arguments.peerNickname,
-            style: const TextStyle(color: Colors.black,),
+            style: const TextStyle(color: Colors.white,),
           ),
         ),
         centerTitle: true,

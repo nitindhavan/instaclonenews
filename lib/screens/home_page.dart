@@ -57,30 +57,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.black,
-        title: const Text(
-          "Groups",
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 27),
-        ),
-      ),
-      body: groupList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          popUpDialog(context);
-        },
-        elevation: 0,
-        backgroundColor: Theme.of(context).primaryColor,
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 30,
-        ),
-      ),
-    );
+    // floatingActionButton: FloatingActionButton(
+    //   onPressed: () {
+    //     popUpDialog(context);
+    //   },
+    //   elevation: 0,
+    //   backgroundColor: Theme.of(context).primaryColor,
+    //   child: const Icon(
+    //     Icons.add,
+    //     color: Colors.white,
+    //     size: 30,
+    //   ),
+    // ),
+    return groupList();
   }
 
   popUpDialog(BuildContext context) {

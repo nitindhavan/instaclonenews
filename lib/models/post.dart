@@ -7,7 +7,7 @@ class Post {
   final likes;
   final String postId;
   final DateTime datePublished;
-  final String postUrl;
+  final List<String> postUrl;
   final String profImage;
   final String tag;
 
@@ -33,7 +33,7 @@ class Post {
       postId: snapshot["postId"],
       datePublished: snapshot["datePublished"],
       username: snapshot["username"],
-      postUrl: snapshot['postUrl'],
+      postUrl: snapshot['postUrl'] ?? [],
       profImage: snapshot['profImage'],
       tag: snapshot['tag'] ?? 'Work',
     );
